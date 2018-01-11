@@ -1,9 +1,14 @@
 <html>
 <head>
 	<script type="text/javascript">
-		s = 'PushManager: ' + window.PushManager + '<br>'
+		function write(text) {
+			document.body.innerHTML += text + '<br>'
+		}
+		s = 'PushManager: ' + window.PushManager
 		window.onload = function () {
-			document.body.innerHTML += s + "On load PushManager: " + window.PushManager + '<br>'
+			write(s)
+			write("On load PushManager: " + window.PushManager)
+			setTimeout(function() {write("Timeout PushManager: " + window.PushManager)}, 200)
 		}
 	</script>
 </head>	
