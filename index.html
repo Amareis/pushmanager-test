@@ -1,8 +1,10 @@
 <html>
 <head>
 	<script type="text/javascript">
-		document.write("PushManager: " + window.PushManager)
-		window.onload = function () { document.write("On load PushManager: " + window.PushManager) }
+		s = 'PushManager: ' + window.PushManager + '<br>'
+		window.onload = function () {
+			document.body.innerHTML += s + "On load PushManager: " + window.PushManager + '<br>'
+		}
 	</script>
 </head>	
 <body>
