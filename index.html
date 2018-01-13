@@ -10,12 +10,16 @@
 			document.body.innerHTML = s
 		}
 		window.onload = flush
-		
+
 		sw.register('sw.js')
 
 		write('PushManager: ' + window.PushManager)
 		write('__bbgb: ' + window.__bbgb)
-		sw.getRegistration().then(reg => write('.pushManager: ' + String(reg && reg.pushManager)))
+		if (window.__bbgb)
+			write('token: ' + __bbgb.getToken())
+		sw.getRegistration()
+		.then(reg => write('.pushManager: ' + String(reg && reg.pushManager)))
+		.then(flush)
 	</script>
 </head>	
 <body>
