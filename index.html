@@ -2,7 +2,6 @@
 <head>
 	<script type="text/javascript">
 		var sw = navigator.serviceWorker
-		sw.register('sw.js')
 		var s = ''
 		function write(text) {
 			s += text + '<br>'
@@ -10,18 +9,13 @@
 		function flush() {
 			document.body.innerHTML = s
 		}
+		window.onload = flush
+		
+		sw.register('sw.js')
 
 		write('PushManager: ' + window.PushManager)
-		sw.getRegistration().then(reg=> write('.pushManager: ' + String(reg && reg.pushManager)))
-		window.onload = function () {
-			flush()
-			write("On load PushManager: " + window.PushManager)
-			sw.getRegistration().then(reg=> write('On load .pushManager: ' + reg.pushManager))
-			setTimeout(function() {
-				write("Timeout PushManager: " + window.PushManager)
-				sw.getRegistration().then(reg=> {write('Timeout .pushManager: ' + reg.pushManager);flush()})
-			}, 200)
-		}
+		write('__bbgb: ' + window.__bbgb)
+		sw.getRegistration().then(reg => write('.pushManager: ' + String(reg && reg.pushManager)))
 	</script>
 </head>	
 <body>
