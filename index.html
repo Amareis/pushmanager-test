@@ -1,14 +1,26 @@
 <html>
 <head>
 	<script type="text/javascript">
+		var sw = navigator.serviceWorker
+		sw.register('sw.js')
+		var s = ''
 		function write(text) {
-			document.body.innerHTML += text + '<br>'
+			s += text + '<br>'
 		}
-		s = 'PushManager: ' + window.PushManager
+		function flush() {
+			document.body.innerHTML = s
+		}
+
+		write('PushManager: ' + window.PushManager)
+		sw.getRegistration().then(reg=> write('.pushManager: ' + String(reg && reg.pushManager)))
 		window.onload = function () {
-			write(s)
+			flush()
 			write("On load PushManager: " + window.PushManager)
-			setTimeout(function() {write("Timeout PushManager: " + window.PushManager)}, 200)
+			sw.getRegistration().then(reg=> write('On load .pushManager: ' + reg.pushManager))
+			setTimeout(function() {
+				write("Timeout PushManager: " + window.PushManager)
+				sw.getRegistration().then(reg=> {write('Timeout .pushManager: ' + reg.pushManager);flush()})
+			}, 200)
 		}
 	</script>
 </head>	
